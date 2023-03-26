@@ -1,4 +1,4 @@
-import { textItemsArr, makeTextItem } from './markup.js';
+import { textItemsArr, makeTextItem, makeAudio } from './markup.js';
 
 const imgSlider = document.querySelectorAll('.item-slider');
 const loading = document.querySelector('.loading');
@@ -10,7 +10,7 @@ imgSlider.forEach((el, i) => {
       imgSlider[0].classList.contains('active') &&
       imgSlider[0].firstElementChild === null
     ) {
-      imgSlider[0].append(makeTextItem(0));
+      imgSlider[0].append(makeTextItem(0), makeAudio(0));
     }
   }
   imgSlider[i].addEventListener('click', function () {
@@ -22,11 +22,12 @@ imgSlider.forEach((el, i) => {
         imgSlider[j].classList.remove('active');
         if (imgSlider[j].firstElementChild !== null) {
           imgSlider[j].firstElementChild.remove();
+          imgSlider[j].lastElementChild.remove();
         }
       });
 
       imgSlider[i].classList.add('active');
-      imgSlider[i].append(makeTextItem(i));
+      imgSlider[i].append(makeTextItem(i), makeAudio(i));
       loading.classList.add('active');
 
       setTimeout(function () {
