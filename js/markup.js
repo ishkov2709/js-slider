@@ -25,14 +25,14 @@ loadingEl.classList.add('loading');
 
 const themeSite = document.createElement('audio');
 themeSite.classList.add('theme');
-themeSite.src = '../audio/theme.mp3';
+themeSite.src = './audio/theme.mp3';
 themeSite.autoplay = true;
 themeSite.preload = 'auto';
 themeSite.volume = 0.1;
 themeSite.loop = true;
 
 const contSliderEl = document.querySelector('.js-slider-box');
-contSliderEl.append(listSliderEl, loadingEl);
+contSliderEl.append(listSliderEl, loadingEl, themeSite);
 
 const textItemsArr = [
   { label: 'BMW' },
@@ -52,7 +52,7 @@ const makeTextItem = ite => {
 
 const makeAudio = num => {
   const itemAudioEl = document.createElement('audio');
-  itemAudioEl.src = `../audio/track_${num}.mp3`;
+  itemAudioEl.src = `./audio/track_${num}.mp3`;
   itemAudioEl.autoplay = true;
   itemAudioEl.preload = 'auto';
   itemAudioEl.volume = 0.15;
