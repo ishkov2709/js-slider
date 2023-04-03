@@ -98,7 +98,7 @@ ul, p {
     }
 }
 
-.target {
+.active-text {
     position: absolute;
     left: 50%;
     bottom: 0%;
@@ -110,6 +110,11 @@ ul, p {
     text-align: center;
     line-height: 0.9;
     font-size: 28px;
+    opacity: 0;
+}
+
+.item-slider.active .active-text {
+    opacity: 1;
     animation-name: vision;
     animation-duration: 1100ms;
     animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);

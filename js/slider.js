@@ -1,38 +1,37 @@
-import { textItemsArr, makeTextItem, makeAudio } from './markup.js';
+import { makeTextItem } from './markup.js';
 
-const imgSlider = document.querySelectorAll('.item-slider');
+const sliderListEl = document.querySelector('.list-slider');
 const loading = document.querySelector('.loading');
+const firstElementActiveSlide =
+  sliderListEl.firstElementChild.classList.add('active');
 
-imgSlider.forEach((el, i) => {
-  if (!imgSlider[i].classList.contains('active')) {
-    imgSlider[0].classList.add('active');
-    if (
-      imgSlider[0].classList.contains('active') &&
-      imgSlider[0].firstElementChild === null
-    ) {
-      imgSlider[0].append(makeTextItem(0), makeAudio(0));
-    }
+makeTextItem(sliderListEl.firstElementChild);
+
+sliderListEl.addEventListener('click', e => {
+  const currentSlide = document.querySelector('.item-slider.active');
+  if (currentSlide.textContent === e.target.textContent) {
+    return;
   }
-  imgSlider[i].addEventListener('click', function () {
-    if (
-      !imgSlider[i].classList.contains('active') &&
-      !loading.classList.contains('active')
-    ) {
-      imgSlider.forEach((elem, j) => {
-        imgSlider[j].classList.remove('active');
-        if (imgSlider[j].firstElementChild !== null) {
-          imgSlider[j].firstElementChild.remove();
-          imgSlider[j].lastElementChild.remove();
-        }
-      });
 
-      imgSlider[i].classList.add('active');
-      imgSlider[i].append(makeTextItem(i), makeAudio(i));
-      loading.classList.add('active');
+  onSlideRemoveClassActive(currentSlide);
+  onSlideAddClassActive(e);
 
-      setTimeout(function () {
-        loading.classList.remove('active');
-      }, 700);
-    }
-  });
+  onLoadingAddClassActive();
+  setTimeout(onLoadingRemoveClassActive, 700);
 });
+
+function onSlideAddClassActive(e) {
+  e.target.classList.add('active');
+}
+
+function onSlideRemoveClassActive(current) {
+  current.classList.remove('active');
+}
+
+function onLoadingAddClassActive() {
+  loading.classList.add('active');
+}
+
+function onLoadingRemoveClassActive() {
+  loading.classList.remove('active');
+}

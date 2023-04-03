@@ -1,22 +1,17 @@
-export { textItemsArr, makeTextItem, makeAudio };
+export { makeTextItem };
 
 const listSliderEl = document.createElement('ul');
 listSliderEl.classList.add('list-slider');
 
-const makeItemSliderEl = () => {
-  const itemSliderEl = document.createElement('li');
-  itemSliderEl.classList.add('item-slider');
-  itemSliderEl.onselectstart = function () {
-    return false;
-  };
-  return itemSliderEl;
-};
+const textItemsArr = ['BMW', 'Porshe', 'McLaren', 'Nissan', 'Toyota', 'Mazda'];
 
 const itemsSliderElArr = [];
 
-for (let i = 0; i < 6; i += 1) {
-  itemsSliderElArr.push(makeItemSliderEl());
-}
+textItemsArr.forEach((el, i) => {
+  const listItemSlide = makeItemSliderEl();
+  listItemSlide.append(makeTextItem(i));
+  itemsSliderElArr.push(listItemSlide);
+});
 
 listSliderEl.append(...itemsSliderElArr);
 
@@ -26,27 +21,17 @@ loadingEl.classList.add('loading');
 const contSliderEl = document.querySelector('.js-slider-box');
 contSliderEl.append(listSliderEl, loadingEl);
 
-const textItemsArr = [
-  { label: 'BMW' },
-  { label: 'Porshe' },
-  { label: 'McLaren' },
-  { label: 'Nissan' },
-  { label: 'Toyota' },
-  { label: 'Mazda' },
-];
-
-const makeTextItem = ite => {
+function makeItemSliderEl() {
+  const itemSliderEl = document.createElement('li');
+  itemSliderEl.classList.add('item-slider');
+  itemSliderEl.onselectstart = function () {
+    return false;
+  };
+  return itemSliderEl;
+}
+function makeTextItem(i) {
   const textItemSliderEl = document.createElement('p');
-  textItemSliderEl.classList.add('target');
-  textItemSliderEl.textContent = textItemsArr[ite].label;
+  textItemSliderEl.classList.add('active-text');
+  textItemSliderEl.textContent = textItemsArr[i];
   return textItemSliderEl;
-};
-
-const makeAudio = num => {
-  const itemAudioEl = document.createElement('audio');
-  itemAudioEl.src = `./audio/track_${num}.mp3`;
-  itemAudioEl.autoplay = true;
-  itemAudioEl.preload = 'auto';
-  itemAudioEl.volume = 0.05;
-  return itemAudioEl;
-};
+}
